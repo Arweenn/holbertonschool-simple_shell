@@ -35,7 +35,8 @@ int main(void)
 
 	while (1)
 	{
-		printf("$ ");
+		if (isatty(STDIN_FILENO))
+			printf("$ ");
 		inputRead = getline(&input, &inputSize, stdin);
 		if (inputRead == -1)
 		{
