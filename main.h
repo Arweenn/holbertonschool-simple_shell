@@ -9,7 +9,7 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
-int main(void);
-void _EndOfFile(char *input, int status);
+void EndOfFile(char *input, int status);
+extern char **environ;
 
 #endif /*MAIN_H*/
