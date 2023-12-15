@@ -6,15 +6,15 @@
  * EndOfFile - ckeck if end of file
  * @input: user's input to free if eof
  * @status: exit value
+ * @inputRead: input stored
  * Return: void
  */
 
-void EndOfFile(char *input, int status)
+void EndOfFile(char *input, ssize_t inputRead, int status)
 {
-	if (feof(stdin))
+	if (inputRead == EOF)
 	{
 		free(input);
-		printf("\n");
 		exit(status);
 	}
 }
@@ -40,7 +40,8 @@ int main(void)
 		inputRead = getline(&input, &inputSize, stdin);
 		if (inputRead == -1)
 		{
-			EndOfFile(input, status);
+			EndOfFile(input, inputRead, status);
+			free(input);
 			perror("Error");
 		}
 		token = strtok(input, " ");
@@ -54,11 +55,16 @@ int main(void)
 		else if (childPid == 0)
 		{
 			if (execve(args[0], args, environ) == -1)
-				fprintf(stderr, "%s: command not found\n", args[0]), exit(EXIT_FAILURE);
+			{
+				fprintf(stderr, "%s: command not found\n", args[0]);
+				free(input);
+				exit(EXIT_FAILURE);
+			}
 		}
 		else
 			wait(&status);
 	}
 	free(input);
+	free(args[0]);
 	return (0);
 }
