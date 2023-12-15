@@ -3,13 +3,13 @@
 #include "main.h"
 
 /**
- * _EndOfFile - prototype
+ * EndOfFile - ckeck if end of file
  * @input: user's input to free if eof
- * @status: exit
+ * @status: exit value
  * Return: void
  */
 
-void _EndOfFile(char *input, int status)
+void EndOfFile(char *input, int status)
 {
 	if (feof(stdin))
 	{
@@ -21,14 +21,14 @@ void _EndOfFile(char *input, int status)
 
 
 /**
- * main - prototype
+ * main - main function for the simple shell
  * Return: 0
  */
 
 int main(void)
 {
 	int status;
-	char *input = NULL, *args[2] = {NULL, NULL};
+	char *input = NULL, *args[2] = {NULL, NULL}, *token;
 	size_t inputSize = 0;
 	ssize_t inputRead;
 	pid_t childPid;
@@ -39,33 +39,25 @@ int main(void)
 		inputRead = getline(&input, &inputSize, stdin);
 		if (inputRead == -1)
 		{
-			_EndOfFile(input, status);
+			EndOfFile(input, status);
 			perror("Error");
-			continue;
 		}
+		token = strtok(input, " ");
+		while (token)
+			token = strtok(NULL, " ");
 		input[inputRead - 1] = '\0';
 		args[0] = input;
 		childPid = fork();
 		if (childPid == -1)
-		{
 			perror("fork");
-			continue;
-		}
 		else if (childPid == 0)
 		{
 			if (execve(args[0], args, environ) == -1)
-			{
 				fprintf(stderr, "%s: command not found\n", args[0]), exit(EXIT_FAILURE);
-			}
 		}
 		else
-		{
 			wait(&status);
-			if (WIFEXITED(status) && WEXITSTATUS(status) != 0)
-				continue;
-		}
 	}
 	free(input);
 	return (0);
 }
-
