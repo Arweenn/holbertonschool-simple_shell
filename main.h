@@ -9,7 +9,8 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
-void EndOfFile(char *input, ssize_t inputRead, int status);
+void EndOfFile(char *input, ssize_t inputRead);
 extern char **environ;
+void exec(char **args);
 
 #endif /*MAIN_H*/
