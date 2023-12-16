@@ -23,20 +23,16 @@ void EndOfFile(char *input, ssize_t inputRead, int status)
 
 /**
  * main - main function for the simple shell
- * @argc: number of arguments
- * @argv: arguments
  * Return: 0
  */
 
-int main(int argc, char *argv[])
+int main(void)
 {
 	int status;
 	char *input = NULL, *args[2] = {NULL, NULL}, *token;
 	size_t inputSize = 0;
 	ssize_t inputRead;
 	pid_t childPid;
-
-	(void)argc;
 
 	while (1)
 	{
@@ -61,7 +57,7 @@ int main(int argc, char *argv[])
 		{
 			if (execve(args[0], args, environ) == -1)
 			{
-				fprintf(stderr, "%s: No such file or directory\n", argv[0]);
+				fprintf(stderr, "%s: command not found\n", args[0]);
 				free(input), exit(EXIT_FAILURE);
 			}
 		}
