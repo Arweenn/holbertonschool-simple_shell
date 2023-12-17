@@ -1,4 +1,5 @@
 #define _GNU_SOURCE
+#define MAX_ARGS 64
 
 #include "main.h"
 
@@ -28,16 +29,19 @@ void EndOfFile(char *input, ssize_t inputRead)
 
 int main(void)
 {
-	int status;
-	char *input = NULL, *args[2] = {NULL, NULL}, *token;
+	unsigned int i = 0;
+	char *input = NULL, *args[MAX_ARGS], *token;
 	size_t inputSize = 0;
 	ssize_t inputRead;
-	pid_t childPid;
 
 	while (1)
 	{
 		if (isatty(STDIN_FILENO))
+		{
 			printf("$ ");
+			fflush(stdout);
+		}
+
 		inputRead = getline(&input, &inputSize, stdin);
 		if (inputRead == -1)
 		{
@@ -45,20 +49,19 @@ int main(void)
 			free(input);
 			perror("Error");
 		}
-		token = strtok(input, " ");
-		while (token)
-			token = strtok(NULL, " ");
 
 		input[inputRead - 1] = '\0';
-		args[0] = input;
 
-		childPid = fork();
-		if (childPid == -1)
-			perror("fork");
-		else if (childPid == 0)
-			exec(args);
-		else
-			wait(&status);
+		token = strtok(input, " ");
+		while (token && i < 64 - 1)
+		{
+			args[i] = token;
+			i++;
+			token = strtok(NULL, " ");
+		}
+
+		args[i] = NULL;
+		exec(args);
 	}
 	free(input);
 	return (0);
