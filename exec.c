@@ -2,7 +2,7 @@
 
 /**
  * exec - prototype
- * @args: arguments
+ * @args: void
  * Return: void
  */
 
@@ -19,7 +19,7 @@ void exec(char **args)
 	{
 		if (execve(args[0], args, environ) == -1)
 		{
-			fprintf(stderr, "%s: command not found\n", args[0]);
+			fprintf(stderr, "%s: No such file or directory\n", "./hsh");
 			free(input);
 			free(args[0]);
 			exit(EXIT_FAILURE);
