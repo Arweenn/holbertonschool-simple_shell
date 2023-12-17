@@ -9,12 +9,22 @@
 void exec(char **args)
 {
 	char *input = NULL;
+	int status;
+	pid_t childPid;
 
-	if (execve(args[0], args, environ) == -1)
+	childPid = fork();
+	if (childPid == -1)
+		perror("fork");
+	else if (childPid == 0)
 	{
-		fprintf(stderr, "%s: command not found\n", args[0]);
-		free(input);
-		free(args[0]);
-		exit(EXIT_FAILURE);
+		if (execve(args[0], args, environ) == -1)
+		{
+			fprintf(stderr, "%s: command not found\n", args[0]);
+			free(input);
+			free(args[0]);
+			exit(EXIT_FAILURE);
+		}
 	}
+	else
+		wait(&status);
 }
