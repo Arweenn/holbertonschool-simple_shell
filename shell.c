@@ -31,8 +31,8 @@ int main(void)
 		if (inputRead > 0 && input[inputRead - 1] == '\n')
 			input[inputRead - 1] = '\0';
 
-		args[0] = input;
-		exec(args);
+		tokenize(input, args);
+		exec(args, input);
 	}
 	free(input);
 	return (0);

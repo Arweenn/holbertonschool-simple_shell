@@ -3,29 +3,45 @@
 /**
  * exec - executes the input received
  * @args: arguments
+ * @input: input
  * Return: void
  */
 
-void exec(char **args)
+void exec(char **args, char *input)
 {
-	char *line = NULL;
-	int status;
-	pid_t childPid;
+	int status, statusExit;
+	pid_t childPid = 0;
+
+	if (access(args[0], X_OK) != 0)
+	{
+		fprintf(stderr, "%s: command not found\n", args[0]);
+	}
 
 	childPid = fork();
 	if (childPid == -1)
-		perror("fork");
+	{
+		perror("fork\n");
+		exit(0);
+	}
 
 	else if (childPid == 0)
 	{
-		if (execve(args[0], args, environ) == -1)
-		{
-			fprintf(stderr, "%s: command not found\n", args[0]);
-			free(line);
-			free(args[0]);
-			exit(EXIT_FAILURE);
-		}
+		execve(args[0], args, environ);
+		free(args[0]);
+		exit(0);
 	}
 	else
+	{
 		wait(&status);
+		if (WIFEXITED(status))
+		{
+			statusExit = WEXITSTATUS(status);
+			if (statusExit != 0)
+			{
+				free(args[0]);
+				free(input);
+				exit(2);
+			}
+		}
+	}
 }
