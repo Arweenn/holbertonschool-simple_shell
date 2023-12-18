@@ -9,7 +9,7 @@
 
 int main(void)
 {
-	char *input = NULL, *args[2] = {NULL, NULL}, *token;
+	char *input = NULL, *args[2] = {NULL, NULL};
 	size_t inputSize = 0;
 	ssize_t inputRead;
 
@@ -32,9 +32,6 @@ int main(void)
 		if (inputRead > 0 && input[inputRead - 1] == '\n')
 			input[inputRead - 1] = '\0';
 
-		token = strtok(input, " ");
-		while (token != NULL)
-			token = strtok(NULL, " ");
 		args[0] = input;
 		exec(args);
 	}
