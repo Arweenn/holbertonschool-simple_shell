@@ -4,27 +4,8 @@
 #include "main.h"
 
 /**
- * EndOfFile - ckeck if end of file
- * @input: user's input to free if eof
- * @inputRead: input stored
- * Return: void
- */
-
-
-void EndOfFile(char *input, ssize_t inputRead)
-{
-	if (inputRead == EOF)
-	{
-		free(input);
-		printf("\n");
-		exit(EXIT_SUCCESS);
-	}
-}
-
-
-/**
- * main - main function for the simple shell
- * Return: 0
+ * main - main function for the shell
+ * Return: 0 on success
  */
 
 int main(void)
@@ -43,11 +24,11 @@ int main(void)
 		}
 
 		inputRead = getline(&input, &inputSize, stdin);
-		if (inputRead == -1)
+		if (inputRead == EOF)
 		{
-			EndOfFile(input, inputRead);
 			free(input);
-			perror("Error");
+			printf("\n");
+			exit(EXIT_SUCCESS);
 		}
 
 		input[inputRead - 1] = '\0';
