@@ -11,5 +11,6 @@
 
 extern char **environ;
 void exec(char **args);
+void shell_exit(char **args);
 
 #endif /*MAIN_H*/
