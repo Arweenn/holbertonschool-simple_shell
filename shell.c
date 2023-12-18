@@ -1,5 +1,4 @@
 #define _GNU_SOURCE
-#define MAX_ARGS 64
 
 #include "main.h"
 
@@ -25,16 +24,13 @@ int main(void)
 		inputRead = getline(&input, &inputSize, stdin);
 		if (inputRead == -1)
 		{
-			if (feof(stdin))
-			{
-				free(input);
-				exit(EXIT_SUCCESS);
-			}
 			free(input);
-			perror("Error");
+			printf("\n");
+			exit(0);
 		}
 
-		input[inputRead - 1] = '\0';
+		if (inputRead > 0 && input[inputRead - 1] == '\n')
+			input[inputRead - 1] = '\0';
 
 		token = strtok(input, " ");
 		while (token != NULL)
