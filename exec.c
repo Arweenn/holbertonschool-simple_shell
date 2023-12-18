@@ -8,34 +8,24 @@
 
 void exec(char **args)
 {
-	char *input = NULL;
-	int status, statExit;
+	char *line = NULL;
+	int status;
 	pid_t childPid;
 
 	childPid = fork();
 	if (childPid == -1)
-		perror("failed fork");
+		perror("fork");
+
 	else if (childPid == 0)
 	{
 		if (execve(args[0], args, environ) == -1)
 		{
-			fprintf(stderr, "%s: No such file or directory\n", "./test");
+			fprintf(stderr, "%s: command not found\n", args[0]);
+			free(line);
 			free(args[0]);
 			exit(EXIT_FAILURE);
 		}
 	}
 	else
-	{
 		wait(&status);
-		if (WIFEXITED(status))
-		{
-			statExit = WEXITSTATUS(status);
-			if (statExit != 0)
-			{
-				free(args[0]);
-				free(input);
-				exit(2);
-			}
-		}
-	}
 }
