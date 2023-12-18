@@ -10,8 +10,7 @@
 
 int main(void)
 {
-	unsigned int i = 0;
-	char *input = NULL, *args[MAX_ARGS], *token;
+	char *input = NULL, *args[2] = {NULL, NULL}, *token;
 	size_t inputSize = 0;
 	ssize_t inputRead;
 
@@ -24,24 +23,23 @@ int main(void)
 		}
 
 		inputRead = getline(&input, &inputSize, stdin);
-		if (inputRead == EOF)
+		if (inputRead == -1)
 		{
+			if (feof(stdin))
+			{
+				free(input);
+				exit(EXIT_SUCCESS);
+			}
 			free(input);
-			printf("\n");
-			exit(EXIT_SUCCESS);
+			perror("Error");
 		}
 
 		input[inputRead - 1] = '\0';
 
 		token = strtok(input, " ");
-		while (token && i < 64 - 1)
-		{
-			args[i] = token;
-			i++;
+		while (token != NULL)
 			token = strtok(NULL, " ");
-		}
-
-		args[i] = NULL;
+		args[0] = input;
 		exec(args);
 	}
 	free(input);
