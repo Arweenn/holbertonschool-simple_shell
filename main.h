@@ -9,7 +9,6 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
-void EndOfFile(char *input, ssize_t inputRead);
 extern char **environ;
 void exec(char **args);
 
