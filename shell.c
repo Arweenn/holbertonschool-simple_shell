@@ -22,10 +22,9 @@ int main(void)
 		}
 
 		inputRead = getline(&input, &inputSize, stdin);
-		if (inputRead == -1)
+		if (inputRead == EOF)
 		{
 			free(input);
-			printf("\n");
 			exit(0);
 		}
 
