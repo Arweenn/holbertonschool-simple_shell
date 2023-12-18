@@ -10,6 +10,7 @@
 #include <sys/wait.h>
 
 extern char **environ;
-void exec(char **args);
+void exec(char **args, char *input);
+void tokenize(char *input, char *args[]);
 
 #endif /*MAIN_H*/
