@@ -2,9 +2,9 @@
 
 /**
  * exec - executes the input received
- * @args: argument
+ * @args: arguments
  * @input: input
- * Return:
+ * Return: void
  */
 
 void exec(char **args, char *input)
