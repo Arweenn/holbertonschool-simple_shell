@@ -20,4 +20,16 @@ void tokenize(char *input, char *args[])
 		token = strtok(NULL, " ");
 	}
 	args[i] = NULL;
+
+	if (strcmp(input, "env") == 0)
+	{
+		printEnv();
+		return;
+	}
+
+	if (strcmp(input, "exit") == 0 && args[1] == NULL)
+	{
+		free(input);
+		exit(0);
+	}
 }
