@@ -21,14 +21,14 @@ void exec(char **args, char *input)
 	if (childPid == -1)
 	{
 		perror("fork\n");
-		exit(EXIT_FAILURE);
+		exit(0);
 	}
 
 	else if (childPid == 0)
 	{
 		execve(args[0], args, environ);
-		perror("execve")
-		exit(EXIT_FAILURE);
+		free(args[0]);
+		exit(0);
 	}
 	else
 	{
@@ -38,7 +38,9 @@ void exec(char **args, char *input)
 			statusExit = WEXITSTATUS(status);
 			if (statusExit != 0)
 			{
-				exit(EXIT_FAILURE);
+				free(args[0]);
+				free(input);
+				exit(2);
 			}
 		}
 	}
