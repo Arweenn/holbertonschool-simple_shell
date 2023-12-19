@@ -1,13 +1,9 @@
 #include "main.h"
 
 /**
- * handle_path - function that finds the path of th command
- * to execute it
- *
- * @input: user's input
- *
- * Return: 'input' if the command has a slash char in it,
- * the result of the given input or NULL if nothing is found
+ * handle_path - Finds the path of the command to execute
+ * @input: User's input
+ * Return: The full path of the command if found, NULL otherwise
  */
 
 char *handle_path(char *input)
