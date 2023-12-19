@@ -11,14 +11,13 @@ void exec(char **args, char *input)
 {
     int status, statusExit;
     pid_t childPid = 0;
-
     char *commandPath = handle_path(args[0]);
+  
+	  if (access(args[0], X_OK) != 0)
+		    fprintf(stderr, "%s: command not found\n", args[0]);
 
-    if (commandPath == NULL)
-    {
+    else if (commandPath == NULL)
         fprintf(stderr, "%s: command not found\n", args[0]);
-        return;
-    }
 
     childPid = fork();
     if (childPid == -1)
