@@ -13,9 +13,7 @@ void exec(char **args, char *input)
 	pid_t childPid = 0;
 
 	if (access(args[0], X_OK) != 0)
-	{
 		fprintf(stderr, "%s: command not found\n", args[0]);
-	}
 
 	childPid = fork();
 	if (childPid == -1)

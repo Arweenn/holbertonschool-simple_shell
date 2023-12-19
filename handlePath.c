@@ -1,7 +1,5 @@
 #include "main.h"
 
-#define _GNU_SOURCE
-
 /**
  * handle_path - function that finds the path of th command
  * to execute it
@@ -14,42 +12,45 @@
 
 char *handle_path(char *input)
 {
-	int i = 0;
-	char *token = NULL;
-	char *cache;
-	char *result = NULL;
+	int i;
+	char *env_entry, *token, *result;
 
 	if (strchr(input, '/') != NULL)
-		strdup(input);
-	while (environ[i])
+		return (strdup(input));
+
+	for (i = 0; environ[i] != NULL; i++)
 	{
-		cache = strdup(environ[i]);
-		token = strtok(cache, "=");
+		env_entry = strdup(environ[i]);
+		token = strtok(env_entry, "=");
 		if (strcmp(token, "PATH") == 0)
 		{
 			token = strtok(NULL, "=");
 			token = strtok(token, ":");
-			while (token)
+			while (token != NULL)
 			{
 				result = malloc(strlen(token) + strlen(input) + 2);
-				if (result ==  NULL)
+				if (result == NULL)
 				{
 					perror("Malloc is NULL");
+					free(env_entry);
 					return (NULL);
 				}
 				sprintf(result, "%s/%s", token, input);
 				if (access(result, X_OK) == 0)
 				{
-					free(cache);
+					free(env_entry);
 					return (result);
 				}
+
 				free(result);
 				token = strtok(NULL, ":");
 			}
 		}
-		free(cache);
+
+		free(env_entry);
 		i++;
 	}
+
 	free(input);
 	return (NULL);
 }
