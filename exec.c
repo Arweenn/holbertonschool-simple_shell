@@ -22,6 +22,7 @@ void _err(char *args[])
 
 void exec(char **args, char *input)
 {
+
 	int status, statusExit;
 	pid_t childPid = 0;
 
