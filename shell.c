@@ -10,7 +10,7 @@
 int main(void)
 {
 	char *input = NULL;
-	char *args[2] = {NULL, NULL};
+	char *args[64] = { NULL };
 	size_t inputSize = 0;
 	ssize_t inputRead;
 
