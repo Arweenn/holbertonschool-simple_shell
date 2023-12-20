@@ -32,4 +32,9 @@ void tokenize(char *input, char *args[])
 		free(args[0]);
 		exit(0);
 	}
+
+	token = strdup(args[0]);
+	args[0] = handle_path(args[0]);
+	if (args[0] != NULL)
+		exec(args, input);
 }
