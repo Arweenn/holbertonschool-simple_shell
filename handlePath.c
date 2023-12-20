@@ -1,53 +1,50 @@
 #include "main.h"
 
 /**
- * exec - executes the input received
- * @args: arguments
- * @input: input
- * Return: void
+ * handle_path - Finds the path of the command to execute
+ * @input: User input
+ * Return: The full path of the command if found, NULL otherwise
  */
 
-void exec(char **args, char *input)
+char *handle_path(char *input)
 {
-    int status, statusExit;
-    pid_t childPid = 0;
-
-    char *commandPath = handle_path(args[0]);
-
-    if (commandPath == NULL)
-    {
-        fprintf(stderr, "%s: command not found\n", args[0]);
-        return;
-    }
-
-    childPid = fork();
-    if (childPid == -1)
-    {
-        perror("fork\n");
-        exit(EXIT_FAILURE);
-    }
-    else if (childPid == 0)
-    {
-        execve(commandPath, args, environ);
-        perror("execve");
-        free(commandPath);
-        free(args[0]);
-        exit(EXIT_FAILURE);
-    }
-    else
-    {
-        free(commandPath);
-        wait(&status);
-        if (WIFEXITED(status))
-        {
-            statusExit = WEXITSTATUS(status);
-            if (statusExit != 0)
-            {
-                free(args[0]);
-                free(input);
-                exit(EXIT_FAILURE);
-            }
+  int i = 0;
+  char *cache, *token, *result;
+  
+  if (strchr(input, '/') != NULL)
+    return (strdup(input));
+  
+	while (environ[i] != NULL)
+	{
+		cache = strdup(environ[i]);
+		token = strtok(cache, "=");
+		if (strcmp(token, "PATH") == 0)
+		{
+			token = strtok(NULL, "=");
+			token = strtok(token, ":");
+			while (token != NULL)
+			{
+				result = malloc(strlen(token) + strlen(input) + 2);
+				if (result == NULL)
+				{
+					perror("Malloc is NULL");
+					return (NULL);
+				}
+				sprintf(result, "%s/%s", token, input);
+				if (access(result, X_OK) == 0)
+				{
+					free(cache);
+					return (result);
         }
+        
+        free(result);
+        token = strtok(NULL, ":");
+      }
     }
+    free(cache);
+    i++;
+  }
+  
+  free(input);
+  return (NULL);
 }
-

@@ -9,7 +9,8 @@
 
 int main(void)
 {
-	char *input = NULL, *args[2] = {NULL, NULL};
+	char *input = NULL;
+	char *args[2] = {NULL, NULL};
 	size_t inputSize = 0;
 	ssize_t inputRead;
 
