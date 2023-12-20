@@ -8,12 +8,12 @@
 
 char *handle_path(char *input)
 {
-  int i = 0;
-  char *cache, *token, *result;
-  
-  if (strchr(input, '/') != NULL)
-    return (strdup(input));
-  
+	int i = 0;
+	char *cache, *token, *result;
+
+	if (strchr(input, '/') != NULL)
+		return (strdup(input));
+
 	while (environ[i] != NULL)
 	{
 		cache = strdup(environ[i]);
@@ -35,16 +35,16 @@ char *handle_path(char *input)
 				{
 					free(cache);
 					return (result);
-        }
-        
-        free(result);
-        token = strtok(NULL, ":");
-      }
-    }
-    free(cache);
-    i++;
-  }
-  
-  free(input);
-  return (NULL);
+				}
+
+				free(result);
+				token = strtok(NULL, ":");
+			}
+		}
+		free(cache);
+		i++;
+	}
+
+	free(input);
+	return (NULL);
 }
