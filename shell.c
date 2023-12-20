@@ -32,7 +32,6 @@ int main(void)
 			input[inputRead - 1] = '\0';
 
 		tokenize(input, args);
-		exec(args, input);
 	}
 	free(input);
 	return (0);
