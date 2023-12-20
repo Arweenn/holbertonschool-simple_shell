@@ -8,16 +8,16 @@
 
 char *handle_path(char *input)
 {
-	int i;
-	char *env_entry, *token, *result;
+	int i = 0;
+	char *cache, *token, *result;
 
 	if (strchr(input, '/') != NULL)
 		return (strdup(input));
 
-	for (i = 0; environ[i] != NULL; i++)
+	while (environ[i] != NULL)
 	{
-		env_entry = strdup(environ[i]);
-		token = strtok(env_entry, "=");
+		cache = strdup(environ[i]);
+		token = strtok(cache, "=");
 		if (strcmp(token, "PATH") == 0)
 		{
 			token = strtok(NULL, "=");
@@ -28,13 +28,13 @@ char *handle_path(char *input)
 				if (result == NULL)
 				{
 					perror("Malloc is NULL");
-					free(env_entry);
+					free(cache);
 					return (NULL);
 				}
 				sprintf(result, "%s/%s", token, input);
 				if (access(result, X_OK) == 0)
 				{
-					free(env_entry);
+					free(cache);
 					return (result);
 				}
 
@@ -42,8 +42,7 @@ char *handle_path(char *input)
 				token = strtok(NULL, ":");
 			}
 		}
-
-		free(env_entry);
+		free(cache);
 		i++;
 	}
 
