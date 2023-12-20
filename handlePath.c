@@ -12,7 +12,6 @@ void exec(char **args, char *input)
     int status, statusExit;
     pid_t childPid = 0;
 
-    // Find the full path of the command
     char *commandPath = handle_path(args[0]);
 
     if (commandPath == NULL)
@@ -37,7 +36,7 @@ void exec(char **args, char *input)
     }
     else
     {
-        free(commandPath); // Free the allocated memory for commandPath
+        free(commandPath);
         wait(&status);
         if (WIFEXITED(status))
         {
