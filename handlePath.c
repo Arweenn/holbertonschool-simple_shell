@@ -2,7 +2,7 @@
 
 /**
  * handle_path - Finds the path of the command to execute
- * @input: User's input
+ * @input: User input
  * Return: The full path of the command if found, NULL otherwise
  */
 
