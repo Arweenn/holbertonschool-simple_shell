@@ -21,6 +21,9 @@ void tokenize(char *input, char *args[])
 	}
 	args[i] = NULL;
 
+	if (args[0] == NULL)
+		exit(0);
+
 	if (strcmp(input, "env") == 0)
 	{
 		printEnv();
