@@ -8,6 +8,7 @@
 void _err(char *args[])
 {
 	fprintf(stderr, "%s: command not found\n", args[0]);
+	perror("");
 	free(args[0]);
 	exit(98);
 }
