@@ -35,13 +35,13 @@ void exec(char **args, char *input)
 	if (childPid == -1)
 	{
 		perror("fork\n");
-		exit(EXIT_FAILURE);
+		exit(0);
 	}
 	else if (childPid == 0)
 	{
 		execve(args[0], args, environ);
 		free(args[0]);
-		exit(EXIT_FAILURE);
+		exit(0);
 	}
 	else
 	{
@@ -53,7 +53,7 @@ void exec(char **args, char *input)
 			{
 				free(args[0]);
 				free(input);
-				exit(EXIT_FAILURE);
+				exit(0);
 			}
 		}
 	}
