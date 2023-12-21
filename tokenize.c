@@ -31,6 +31,7 @@ void tokenize(char *input, char *args[])
 	{
 		free(args[0]);
 		perror("");
+		exit(0);
 	}
 
 	token = strdup(args[0]);
