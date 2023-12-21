@@ -30,7 +30,6 @@ void tokenize(char *input, char *args[])
 	if (strcmp(input, "exit") == 0 && args[1] == NULL)
 	{
 		free(args[0]);
-		perror("");
 		exit(0);
 	}
 
@@ -45,5 +44,5 @@ void tokenize(char *input, char *args[])
 	}
 	free(token);
 	fprintf(stderr, "%s: command not found\n", args[0]);
-	exit(EXIT_FAILURE);
+	exit(127);
 }
