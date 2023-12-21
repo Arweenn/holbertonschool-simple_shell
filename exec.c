@@ -35,6 +35,7 @@ void exec(char **args, char *input)
 	if (childPid == -1)
 	{
 		perror("fork\n");
+		free(input);
 		exit(0);
 	}
 	else if (childPid == 0)
