@@ -66,9 +66,9 @@ All functions from string.h.
 - `write` (man 2 write)
 ### Features
 
--  Displays a prompt and wait for the user to type a command. A command line always ends with a new line.
--  The prompt is displayed again each time a command has been executed.
--  The command lines are simple, no semicolons, no pipes, no redirections or any other advanced features.
+- Displays a prompt and wait for the user to type a command. A command line always ends with a new line.
+- The prompt is displayed again each time a command has been executed.
+- The command lines are simple, no semicolons, no pipes, no redirections or any other advanced features.
 - Handles arguments
 - Handles errors.
 - Handles the “end of file” condition (`Ctrl+D`)
@@ -108,14 +108,14 @@ root@id:/holbertonschool-simple_shell#
 ```
 ## Files :gear:
 
-`main.h` : Header file containing all prototypes and necessary libraries 
-`shell.c` : File containing the main function of the program
-`exec.c` : File containing the function `execve()` to execute the input received
-`tokenize.c` : File containing the function `strtok()` in order to parse the arguments received in the input as per example `ls -l` or `ls -a`, even both : `ls -l -a`
-`handlePath.c` : File containing a program to handle the `PATH` situation in the input, in order to treat commands as `ls`, `pwd`
-`printEnv.c` : File containing a little code that give the occasion to handle the `env` command received as an input
-`README.md` README file that you are reading now :)
-`AUTHORS` : The project caretakers :)
+- `main.h` : Header file containing all prototypes and necessary libraries 
+- `shell.c` : File containing the main function of the program
+- `exec.c` : File containing the function `execve()` to execute the input received
+- `tokenize.c` : File containing the function `strtok()` in order to parse the arguments received in the input as per example `ls -l` or `ls -a`, even both : `ls -l -a`
+- `handlePath.c` : File containing a program to handle the `PATH` situation in the input, in order to treat commands as `ls`, `pwd`
+- `printEnv.c` : File containing a little code that give the occasion to handle the `env` command received as an input
+- `README.md` README file that you are reading now :)
+- `AUTHORS` : The project caretakers :)
 
 ## Authors :writing_hand:
 
