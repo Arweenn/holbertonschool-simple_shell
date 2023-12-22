@@ -41,8 +41,9 @@ void exec(char **args, char *input)
 	else if (childPid == 0)
 	{
 		execve(args[0], args, environ);
+		perror("");
 		free(args[0]);
-		exit(0);
+		exit(2);
 	}
 	else
 	{
