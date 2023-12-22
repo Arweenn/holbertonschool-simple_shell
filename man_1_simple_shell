@@ -1,35 +1,87 @@
-.TH HSH 1 21-12-2023 HSH\ 1 Simple\ Shell\ Manual
+.TH SIMPLE_SHELL "December 2023" "Holberton School Team Project in C - simple_shell"
 
 .SH NAME
-hsh - Simple Shell. Command line interpreter
+simple_shell \- formatted output conversion
 
 .SH SYNOPSIS
-Run ./hsh [command] [argument] for interactive mode and echo "[command] [argument]" | ./hsh for non-interactive mode.
-
+.nf
+This simple shell program is executed by typing ./hsh
+.br
+Then, it will display a prompt ("$ ") and wait for a command as an input, such as command [arguments] [other]
+.fi
 .SH DESCRIPTION
-Simple Shell is a command line interpreter developed in C language that emulates the most basic functionality of "sh".
+This program simulates a command interpreter based in Unix and GNU/LINUX with its most basic commands. Through a terminal emulator and some executable instructions (shell scripts), the user can interact with this \fBsimple_shell.\fR
+This simple shell program is not supposed to be an exact imitation of the original Unix Shell. This doesn't cover all of the instructions the original does.
 
-.SH COMPILATION
-gcc -Wall -Werror -Wextra -pedantic -std=gnu89 *.c -o hsh
+.B Invocation
+To start the interactive mode the program will be executed, then starts the mode indicated by '$', to exit the mode type 'exit' or 'ctrl + d'. In the non-interactive mode, the location that contains the command to be executed must be specified in the command line.
 
-.SH MODES
-The shell can be used in interactive or non-interactive mode. The interactive mode is how the shell is normally used, the executable file is run and we can write commands. In the non-interactive mode you pass the command to the executable file with a pipe operator. In the "EXAMPLES" section you can see how to use them.
+.B Execution
+The program takes the arguments of the command line in a string and it is tokenizes into words using "space" as a delimiter, the first word is consider the command and all remaining are considered the arguments to that command. If the command is valid:
+
+1. If the first argument is different to '.', '/' or shell builtin, the program searches in the PATH and then invocates it.
+2. If the first character is '.' or '/', the program executes that typed command with the passed argument.
 
 .SH EXAMPLES
-- Interactive mode:
-.TP
-\r$ ./hsh
-.TP
-\r\rhsh$ bin/pwd
-.TP
-\r\rhsh$ bin/ls -a
-.TP
-\r\rhsh$ ls -l
-.TP
-- Non-interactive mode:
-.TP
-\recho "ls -l" | ./hsh
+The following example demonstrates how to use \fB simple shell\fP:
+./hsh [command] [options]
+$ ls -l
+.fi
 
-.SH AUTHORS
-Daoui Yassine
+/bin/ls
+/bin/ls -a
+ls
+.fi
+
+This will output:
+.nf
+(Your Files)
+.fi
+
+.SH NOTES
+.PP
+.SH OPTIONS
+.B Simple Shell
+operates in both
+.I interactive
+and 
+.I non-interactive
+mode. The user may initiate
+.B simple shell
+and begin working or initate
+.B simple shell
+using commands meant to be run by the program.
+.SH ARGUMENTS
+The first argument, argument 0 is understood as the command to be run by
+.B simple shell
+and arguments following as modifier or options.
+.SH Return value
+The return value of a simple command is its exit status
+.SH Example
+.PP
+
+$./hsh
+
+$
+
+$ls 
+
+.RS 3
+AUTHORS           handlePath.c               man_1_simple_shell
+.br
+README.md         test         exec.c         main.h
+.br
+printEnv.c          shell.c                 tokenize.c
+.RE
+$
+.SH OPTIONS
+.PP
+There are no options for the moment.
+
+.SH EXIT STATUS
+The exit value depends on how a function has terminated. Every error is identified by a certain value. On success, it will always return 0.
+.SH RETURN VALUE
+Return 0 on success, otherwise it will return the exit value.
+
+.SH AUTHOR
 Dumont Arwen
