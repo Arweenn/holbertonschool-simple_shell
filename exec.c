@@ -36,14 +36,15 @@ void exec(char **args, char *input)
 	{
 		perror("fork\n");
 		free(input);
-		exit(0);
+		free(args[0]);
+		exit(EXIT_FAILURE);
 	}
 	else if (childPid == 0)
 	{
 		execve(args[0], args, environ);
-		perror("");
+		perror(args[0]);
 		free(args[0]);
-		exit(2);
+		exit(EXIT_FAILURE);
 	}
 	else
 	{
