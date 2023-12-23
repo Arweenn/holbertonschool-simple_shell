@@ -21,6 +21,9 @@ void tokenize(char *input, char *args[])
 	}
 	args[i] = NULL;
 
+	if (args[0] == NULL)
+		exit(0);
+
 	if (strcmp(input, "env") == 0)
 	{
 		printEnv();
@@ -42,7 +45,7 @@ void tokenize(char *input, char *args[])
 		free(args[0]);
 		return;
 	}
+	fprintf(stderr, "./hsh: 1: %s: not found\n", token);
 	free(token);
-	fprintf(stderr, "%s: command not found\n", args[0]);
 	exit(127);
 }
